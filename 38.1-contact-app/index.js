@@ -22,6 +22,8 @@ function menu() {
     console.log('2. Edit contact info');
     console.log('3. Delete contact info');
     console.log('4. Show contact list');
+    console.log('5. Search contact');
+    console.log('6. Save and Exit');
 }
 
 function inputContact() {
