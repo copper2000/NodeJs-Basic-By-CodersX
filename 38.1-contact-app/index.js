@@ -5,6 +5,7 @@
  * - Xoá contact
  * - Tìm kiếm contact: có thể nhập vào tên (không dấu hoặc có dấu, chữ hoa hoặc chữ thường vẫn cho ra kết quả) hoặc 1 phần số điện thoại
  */
+
 var readlineSync = require('readline-sync');
 var fs = require('fs');
 
@@ -48,25 +49,27 @@ function getIdContact() {
     return i;
 }
 
-function editContact() { // not done, need to fix
-    var chooseId = readlineSync.question('Choose Id: ');
-    var contact = contacts.map(function (item) {
-        if (chooseId === item.id) {
-            var contactNameEdit = readlineSync.question('Edit name: ');
-            var phoneNumberEdit = readlineSync.question('Edit phone number: ');
-            var newContact = {
-                id: chooseId,
-                name: contactNameEdit,
-                phone: phoneNumberEdit,
-            }
-            contacts.push(newContact);
+function editContact() { 
+    var id = readlineSync.question('Input id that need to edit: ');
+    var editCont = contacts.map(function(item){
+        if (parseInt(id) == item.id) {
+            var editName = readlineSync.question('Edit name: ');
+            var editPhone = readlineSync.question('Edit phone number: ');                    
+            item.name = editName;
+            item.phone = editPhone;
         }
-    })
-    console.log(contact);
+    });
+    return editCont;    
 }
 
-function deleteContact() { // not finish
-
+function deleteContact() { 
+    var id = readlineSync.question('Input id that need to delete\n');
+    var delCont = contacts.map(function(item){
+        if (id == item.id) {
+            contacts.splice(id, 1);
+        }       
+    });            
+    return delCont;    
 }
 
 function showContact() {
@@ -76,7 +79,15 @@ function showContact() {
 }
 
 function searchContact() { // not finish
-
+    // find id
+    var findName = readlineSync.question('Find name: ');
+    var findPhone = readlineSync.question('Find phone: ');
+    var findCont = contacts.find(function(item){
+        if(findName == item.name && findPhone == item.phone) {
+            console.log('Result:', item.name, item.phone);
+        }
+    });    
+    return findCont;
 }
 
 function saveAndExit() {
